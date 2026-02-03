@@ -10,8 +10,8 @@ import { formatCurrency as formatCurrencyBase } from "@/lib/balance-engine";
 export function useCurrency() {
     const defaultCurrency = useStore((state) => state.defaultCurrency);
 
-    const formatCurrency = (amount: number) => {
-        return formatCurrencyBase(amount, defaultCurrency);
+    const formatCurrency = (amount: number, currencyCode?: string) => {
+        return formatCurrencyBase(amount, currencyCode || defaultCurrency);
     };
 
     return {

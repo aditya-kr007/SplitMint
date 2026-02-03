@@ -50,14 +50,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         setThemeState(prev => prev === "dark" ? "light" : "dark");
     };
 
-    // Prevent hydration mismatch by not rendering until mounted
-    if (!mounted) {
-        return <>{children}</>;
-    }
-
     return (
         <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
-            {children}
+            {/* Avoid hydration mismatch for theme-dependent UI by delaying rendering if needed, 
+                but for now we render always to provide context. 
+                Ideally, individual components handle 'mounted' check for specific parts. */}
+            <div style={{ visibility: !mounted ? 'hidden' : 'visible' }}>
+                {children}
+            </div>
         </ThemeContext.Provider>
     );
 }
